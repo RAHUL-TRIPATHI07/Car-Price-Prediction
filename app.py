@@ -3,12 +3,20 @@ import joblib
 import numpy as np
 import pandas as pd
 import json
+import os
 
 app = Flask(__name__)
 
 # Load trained model and encoder
-model = joblib.load("model/linear_regression_model.pkl")
-encoder = joblib.load("model/car_encoder.pkl")
+MODEL_DIR = os.path.join(app.root_path, "model")
+
+model = joblib.load(
+    os.path.join(MODEL_DIR, "linear_regression_model.pkl")
+)
+
+encoder = joblib.load(
+    os.path.join(MODEL_DIR, "car_encoder.pkl")
+)
 with open("brand_model_mapping.json", "r") as f:
     brand_model_mapping = json.load(f)
 
