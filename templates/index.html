@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Used Car Price Predictor</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header class="hero">
+            <h1>Used Car Price Predictor</h1>
+            <p>
+                Estimate the expected listing price of a used car
+                using a machine learning model.
+            </p>
+        </header>
+
+
+        <section class="card">
+
+            <h2>Vehicle Details</h2>
+
+            <form id="predictionForm">
+
+                <div class="form-grid">
+
+                    <!-- Brand -->
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+
+                        <select id="brand" name="brand" required>
+                            <option value="">Select brand</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Model -->
+                    <div class="form-group">
+                         <label for="model">Model</label>
+
+                        <select id="model" name="model" required disabled>
+                            <option value="">Select brand first</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Vehicle Age -->
+                    <div class="form-group">
+                        <label for="vehicle_age">Vehicle Age (years)</label>
+                        <input type="number" id="vehicle_age" name="vehicle_age" min="0" max="29" step="1" required>
+                    </div>
+
+
+                    <!-- KM Driven -->
+                    <div class="form-group">
+                        <label for="km_driven">Kilometers Driven</label>
+                        <input type="number" id="km_driven" name="km_driven" min="100" max="3800000" step="1" required>
+                    </div>
+
+
+                    <!-- Seller Type -->
+                    <div class="form-group">
+                        <label for="seller_type">Seller Type</label>
+
+                        <select id="seller_type" name="seller_type" required>
+                            <option value="">Select seller type</option>
+                            <option value="Dealer">Dealer</option>
+                            <option value="Individual">Individual</option>
+                            <option value="Trustmark Dealer">
+                                Trustmark Dealer
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <!-- Fuel Type -->
+                    <div class="form-group">
+                        <label for="fuel_type">Fuel Type</label>
+
+                        <select id="fuel_type" name="fuel_type" required>
+                            <option value="">Select fuel type</option>
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="CNG">CNG</option>
+                            <option value="LPG">LPG</option>
+                            <option value="Electric">Electric</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Transmission -->
+                    <div class="form-group">
+                        <label for="transmission_type">Transmission</label>
+
+                        <select
+                            id="transmission_type"
+                            name="transmission_type"
+                            required
+                        >
+                            <option value="">Select transmission</option>
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Mileage -->
+                    <div class="form-group">
+                        <label for="mileage">Mileage (km/l)</label>
+
+
+                        <input type="number" id="mileage" name="mileage" min="4" max="33.54" step="0.01" required>
+
+                    </div>
+
+
+                    <!-- Max Power -->
+                    <div class="form-group">
+                        <label for="max_power">Max Power (bhp)</label>
+
+                        <input type="number" id="max_power" name="max_power" min="38.4" max="626" step="0.1" required>
+                    </div>
+
+
+                    <!-- Seats -->
+                    <div class="form-group">
+                        <label for="seats">Seats</label>
+
+                        <input type="number" id="seats" name="seats" min="2" max="9" step="1" required>
+                    </div>
+
+                </div>
+
+
+                <button type="submit" id="predictButton">
+                    Estimate Price
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Prediction Result -->
+
+        <section
+            class="result-card"
+            id="resultCard"
+            hidden
+        >
+
+            <p class="result-label">
+                Estimated Listing Price
+            </p>
+
+            <h2 id="predictedPrice">₹0</h2>
+
+            <p class="result-description">
+                This estimate is generated by the trained machine learning model.
+            </p>
+
+        </section>
+
+
+        <!-- Error -->
+
+        <div
+            class="error-message"
+            id="errorMessage"
+            hidden
+        ></div>
+
+
+        <footer>
+            <p>
+                Machine Learning Project · Multiple Linear Regression
+            </p>
+        </footer>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
