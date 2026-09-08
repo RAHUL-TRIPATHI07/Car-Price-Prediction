@@ -6,60 +6,168 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fb;
-    color: #1f2937;
+    background: #f4f7fb;
+    color: #111827;
     min-height: 100vh;
 }
 
 .container {
-    width: min(1100px, 92%);
+    width: min(1180px, 92%);
     margin: 0 auto;
-    padding: 50px 0;
+    padding: 48px 0 30px;
 }
 
-/* ---------------- HERO ---------------- */
+
+/* ================================
+   HERO
+================================ */
 
 .hero {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 38px;
+}
+
+.hero-badge {
+    display: inline-block;
+
+    padding: 7px 14px;
+    margin-bottom: 16px;
+
+    border-radius: 999px;
+
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
 }
 
 .hero h1 {
-    font-size: 42px;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.1;
+
+    font-weight: 750;
+
     color: #111827;
+
+    margin-bottom: 14px;
 }
 
 .hero p {
-    font-size: 17px;
-    color: #6b7280;
-    max-width: 650px;
+    max-width: 680px;
     margin: 0 auto;
-    line-height: 1.6;
+
+    color: #6b7280;
+
+    font-size: 16px;
+    line-height: 1.7;
 }
 
-/* ---------------- CARD ---------------- */
+
+/* ================================
+   MAIN GRID
+================================ */
+
+.app-grid {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
+
+    gap: 24px;
+
+    align-items: start;
+}
+
+
+/* ================================
+   GENERAL CARD
+================================ */
+
+.card,
+.result-card,
+.model-info {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 35px rgba(15, 23, 42, 0.06);
+}
+
+
+/* ================================
+   FORM CARD
+================================ */
 
 .card {
-    background: white;
-    border-radius: 16px;
-    padding: 35px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+    padding: 32px;
 }
 
-.card h2 {
-    font-size: 24px;
-    margin-bottom: 28px;
+.section-heading {
+    margin-bottom: 30px;
+}
+
+.section-eyebrow {
+    color: #2563eb;
+
+    font-size: 11px;
+    font-weight: 750;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 7px;
+}
+
+.section-heading h2 {
+    font-size: 25px;
     color: #111827;
 }
 
-/* ---------------- FORM ---------------- */
+
+/* ================================
+   FORM SECTIONS
+================================ */
+
+.form-section {
+    padding-bottom: 27px;
+    margin-bottom: 27px;
+
+    border-bottom: 1px solid #eef0f4;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.form-section h3 {
+    font-size: 15px;
+
+    color: #374151;
+
+    margin-bottom: 18px;
+}
+
+
+/* ================================
+   FORM GRID
+================================ */
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
 }
 
 .form-group {
@@ -68,69 +176,111 @@ body {
 }
 
 .form-group label {
-    font-size: 14px;
-    font-weight: 600;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+
     margin-bottom: 8px;
+
     color: #374151;
+
+    font-size: 13px;
+    font-weight: 650;
 }
+
+.unit {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
 
 .form-group input,
 .form-group select {
     width: 100%;
     height: 46px;
+
     padding: 0 13px;
 
     border: 1px solid #d1d5db;
-    border-radius: 8px;
+    border-radius: 9px;
 
-    background: white;
+    background: #ffffff;
+
     color: #111827;
 
-    font-size: 15px;
+    font-family: inherit;
+    font-size: 14px;
 
     outline: none;
 
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+    border-color: #9ca3af;
 }
 
 .form-group input:focus,
 .form-group select:focus {
     border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
 }
 
 .form-group input::placeholder {
     color: #9ca3af;
 }
 
-/* ---------------- BUTTON ---------------- */
+.form-group select:disabled {
+    background: #f9fafb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+
+/* ================================
+   PREDICT BUTTON
+================================ */
 
 #predictButton {
     width: 100%;
     height: 50px;
 
-    margin-top: 30px;
+    margin-top: 28px;
 
     border: none;
-    border-radius: 9px;
+    border-radius: 10px;
 
     background: #2563eb;
-    color: white;
+    color: #ffffff;
 
-    font-size: 16px;
-    font-weight: 600;
+    font-family: inherit;
+
+    font-size: 15px;
+    font-weight: 700;
 
     cursor: pointer;
 
     transition:
         background 0.2s ease,
-        transform 0.1s ease;
+        transform 0.1s ease,
+        box-shadow 0.2s ease;
 }
 
 #predictButton:hover {
     background: #1d4ed8;
+
+    box-shadow:
+        0 6px 16px rgba(37, 99, 235, 0.20);
 }
 
 #predictButton:active {
@@ -139,78 +289,321 @@ body {
 
 #predictButton:disabled {
     background: #93c5fd;
+
     cursor: not-allowed;
+
+    box-shadow: none;
 }
 
-/* ---------------- RESULT ---------------- */
+
+/* ================================
+   RIGHT PANEL
+================================ */
+
+.prediction-panel {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* ================================
+   RESULT CARD
+================================ */
 
 .result-card {
-    margin-top: 25px;
+    min-height: 430px;
 
-    background: white;
-    border-radius: 16px;
+    padding: 32px;
 
-    padding: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     text-align: center;
+}
 
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+.empty-state {
+    max-width: 310px;
+}
 
-    border: 1px solid #e5e7eb;
+.empty-icon {
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: #eff6ff;
+
+    font-size: 29px;
+}
+
+.empty-state h2 {
+    font-size: 20px;
+
+    color: #1f2937;
+
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* ================================
+   PRICE
+================================ */
+
+#predictionContent {
+    width: 100%;
 }
 
 .result-label {
     color: #6b7280;
-    font-size: 14px;
-    font-weight: 600;
+
+    font-size: 11px;
+    font-weight: 750;
+
+    letter-spacing: 1.2px;
+
     text-transform: uppercase;
-    letter-spacing: 0.8px;
 }
 
 #predictedPrice {
-    font-size: 42px;
-    margin: 12px 0;
+    margin: 10px 0 8px;
+
     color: #111827;
+
+    font-size: clamp(34px, 4vw, 46px);
+
+    line-height: 1.1;
 }
 
 .result-description {
     color: #6b7280;
-    font-size: 14px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
 }
 
-/* ---------------- ERROR ---------------- */
+
+/* ================================
+   VEHICLE SUMMARY
+================================ */
+
+.vehicle-summary {
+    margin-top: 28px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #eef0f4;
+
+    text-align: left;
+}
+
+.summary-header {
+    margin-bottom: 17px;
+}
+
+.summary-header h3 {
+    font-size: 18px;
+    color: #111827;
+}
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.summary-item {
+    padding: 12px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+
+    border-radius: 9px;
+}
+
+.summary-item span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+}
+
+.summary-item strong {
+    display: block;
+
+    color: #374151;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ================================
+   MODEL INFO
+================================ */
+
+.model-info {
+    padding: 25px 28px;
+}
+
+.model-info h3 {
+    margin-bottom: 8px;
+
+    color: #111827;
+
+    font-size: 18px;
+}
+
+.model-info > p:not(.section-eyebrow) {
+    color: #6b7280;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.model-stats {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.model-stat {
+    padding: 13px 8px;
+
+    text-align: center;
+
+    background: #f8fafc;
+
+    border-radius: 9px;
+}
+
+.model-stat strong {
+    display: block;
+
+    color: #111827;
+
+    font-size: 17px;
+
+    margin-bottom: 4px;
+}
+
+.model-stat span {
+    color: #9ca3af;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* ================================
+   ERROR
+================================ */
 
 .error-message {
     margin-top: 20px;
 
-    padding: 14px 16px;
+    padding: 13px 16px;
 
-    border-radius: 8px;
+    border-radius: 9px;
 
     background: #fef2f2;
+
     border: 1px solid #fecaca;
 
     color: #b91c1c;
 
-    font-size: 14px;
+    font-size: 13px;
+
+    line-height: 1.5;
 }
 
-/* ---------------- FOOTER ---------------- */
+
+/* ================================
+   FOOTER
+================================ */
 
 footer {
     text-align: center;
+
     margin-top: 35px;
 
     color: #9ca3af;
-    font-size: 13px;
+
+    font-size: 12px;
+
+    line-height: 1.6;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+footer p + p {
+    margin-top: 3px;
+}
 
-@media (max-width: 700px) {
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 850px) {
+
+    .app-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prediction-panel {
+        order: 2;
+    }
+
+    .result-card {
+        min-height: 380px;
+    }
+}
+
+
+@media (max-width: 600px) {
 
     .container {
-        padding: 30px 0;
+        width: 94%;
+        padding: 30px 0 24px;
+    }
+
+    .hero {
+        margin-bottom: 28px;
     }
 
     .hero h1 {
@@ -218,18 +611,93 @@ footer {
     }
 
     .hero p {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .card {
-        padding: 24px;
+        padding: 23px;
     }
 
     .form-grid {
         grid-template-columns: 1fr;
     }
 
-    #predictedPrice {
-        font-size: 34px;
+    .result-card {
+        padding: 25px 20px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .model-info {
+        padding: 23px;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .model-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================
+   RESET BUTTON
+================================ */
+
+.reset-button {
+    width: 100%;
+    height: 46px;
+
+    margin-top: 16px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #374151;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.reset-button:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+
+/* ================================
+   RESULT ANIMATION
+================================ */
+
+.result-card.show-result {
+    animation: resultAppear 0.35s ease-out;
+}
+
+@keyframes resultAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

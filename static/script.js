@@ -4,11 +4,33 @@ const predictButton = document.getElementById("predictButton");
 const resultCard = document.getElementById("resultCard");
 const predictedPrice = document.getElementById("predictedPrice");
 
+const emptyState = document.getElementById("emptyState");
+const predictionContent = document.getElementById("predictionContent");
+
 const errorMessage = document.getElementById("errorMessage");
 
 const brandSelect = document.getElementById("brand");
 const modelSelect = document.getElementById("model");
 
+const resetButton = document.getElementById("resetButton");
+
+
+// Vehicle summary elements
+const summaryCarName = document.getElementById("summaryCarName");
+const summaryAge = document.getElementById("summaryAge");
+const summaryKm = document.getElementById("summaryKm");
+const summaryFuel = document.getElementById("summaryFuel");
+const summaryTransmission =
+    document.getElementById("summaryTransmission");
+const summaryMileage = document.getElementById("summaryMileage");
+const summaryPower = document.getElementById("summaryPower");
+const summarySeats = document.getElementById("summarySeats");
+const summarySeller = document.getElementById("summarySeller");
+
+
+/* =========================================
+   LOAD BRAND / MODEL OPTIONS
+========================================= */
 
 async function loadCarOptions() {
 
@@ -21,6 +43,7 @@ async function loadCarOptions() {
         }
 
         const carOptions = await response.json();
+
 
         // Add brands
         Object.keys(carOptions)
@@ -55,13 +78,20 @@ async function loadCarOptions() {
     }
 }
 
+
+/* =========================================
+   BRAND → MODEL DROPDOWN
+========================================= */
+
 brandSelect.addEventListener("change", function () {
 
     const selectedBrand = brandSelect.value;
 
+
     // Reset model dropdown
     modelSelect.innerHTML =
         '<option value="">Select model</option>';
+
 
     if (!selectedBrand) {
 
@@ -69,6 +99,7 @@ brandSelect.addEventListener("change", function () {
 
         return;
     }
+
 
     const models =
         brandSelect.carOptions[selectedBrand] || [];
@@ -89,52 +120,123 @@ brandSelect.addEventListener("change", function () {
 });
 
 
+/* =========================================
+   DISPLAY VEHICLE SUMMARY
+========================================= */
+
+function displayVehicleSummary(data) {
+
+    summaryCarName.textContent =
+        `${data.brand} ${data.model}`;
+
+
+    summaryAge.textContent =
+        `${data.vehicle_age} years`;
+
+
+    summaryKm.textContent =
+        `${Number(data.km_driven).toLocaleString("en-IN")} km`;
+
+
+    summaryFuel.textContent =
+        data.fuel_type;
+
+
+    summaryTransmission.textContent =
+        data.transmission_type;
+
+
+    summaryMileage.textContent =
+        `${data.mileage} km/l`;
+
+
+    summaryPower.textContent =
+        `${data.max_power} bhp`;
+
+
+    summarySeats.textContent =
+        data.seats;
+
+
+    summarySeller.textContent =
+        data.seller_type;
+}
+
+
+/* =========================================
+   FORM SUBMISSION
+========================================= */
+
 form.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
+
     // Hide previous messages
-    resultCard.hidden = true;
     errorMessage.hidden = true;
+
 
     // Disable button while prediction is running
     predictButton.disabled = true;
     predictButton.textContent = "Estimating...";
 
+
     const data = {
-        brand: document.getElementById("brand").value,
-        model: document.getElementById("model").value,
 
-        vehicle_age: Number(
-            document.getElementById("vehicle_age").value
-        ),
+        brand:
+            document.getElementById("brand").value,
 
-        km_driven: Number(
-            document.getElementById("km_driven").value
-        ),
+        model:
+            document.getElementById("model").value,
 
-        seller_type: document.getElementById("seller_type").value,
-        fuel_type: document.getElementById("fuel_type").value,
+
+        vehicle_age:
+            Number(
+                document.getElementById("vehicle_age").value
+            ),
+
+
+        km_driven:
+            Number(
+                document.getElementById("km_driven").value
+            ),
+
+
+        seller_type:
+            document.getElementById("seller_type").value,
+
+
+        fuel_type:
+            document.getElementById("fuel_type").value,
+
+
         transmission_type:
             document.getElementById("transmission_type").value,
 
-        mileage: Number(
-            document.getElementById("mileage").value
-        ),
 
-        max_power: Number(
-            document.getElementById("max_power").value
-        ),
+        mileage:
+            Number(
+                document.getElementById("mileage").value
+            ),
 
-        seats: Number(
-            document.getElementById("seats").value
-        )
+
+        max_power:
+            Number(
+                document.getElementById("max_power").value
+            ),
+
+
+        seats:
+            Number(
+                document.getElementById("seats").value
+            )
     };
 
 
     try {
 
         const response = await fetch("/predict", {
+
             method: "POST",
 
             headers: {
@@ -142,6 +244,7 @@ form.addEventListener("submit", async function (event) {
             },
 
             body: JSON.stringify(data)
+
         });
 
 
@@ -149,22 +252,49 @@ form.addEventListener("submit", async function (event) {
 
 
         if (!response.ok) {
+
             throw new Error(
                 result.error || "Prediction failed."
             );
         }
 
 
-        const price = Number(result.predicted_price);
+        /* -------------------------
+           PRICE
+        ------------------------- */
+
+        const price =
+            Number(result.predicted_price);
 
 
         predictedPrice.textContent =
             "₹" + price.toLocaleString("en-IN");
 
 
-        resultCard.hidden = false;
+        /* -------------------------
+           VEHICLE SUMMARY
+        ------------------------- */
+
+        displayVehicleSummary(data);
+
+
+        /* -------------------------
+           SHOW RESULT
+        ------------------------- */
+
+        emptyState.hidden = true;
+
+        predictionContent.hidden = false;
+
+        // Restart result animation
+       resultCard.classList.remove("show-result");
+
+       void resultCard.offsetWidth;
+
+       resultCard.classList.add("show-result");
 
     }
+
 
     catch (error) {
 
@@ -172,15 +302,55 @@ form.addEventListener("submit", async function (event) {
             error.message;
 
         errorMessage.hidden = false;
+
     }
+
 
     finally {
 
         predictButton.disabled = false;
-        predictButton.textContent = "Estimate Price";
+
+        predictButton.textContent =
+            "Estimate Price";
     }
 
 });
 
+/* =========================================
+   RESET PREDICTION
+========================================= */
+
+resetButton.addEventListener("click", function () {
+
+    // Reset all form fields
+    form.reset();
+
+
+    // Reset model dropdown
+    modelSelect.innerHTML =
+        '<option value="">Select brand first</option>';
+
+    modelSelect.disabled = true;
+
+
+    // Hide prediction
+    predictionContent.hidden = true;
+
+
+    // Show empty state
+    emptyState.hidden = false;
+
+
+    // Hide error
+    errorMessage.hidden = true;
+
+
+    // Remove result animation
+    resultCard.classList.remove("show-result");
+});
+
+/* =========================================
+   INITIALIZE
+========================================= */
 
 loadCarOptions();
